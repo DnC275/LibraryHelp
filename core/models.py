@@ -58,7 +58,22 @@ class Author(models.Model):
 
 
 class Book(models.Model):
+    GENRE_CHOICES = [
+        ('WG', 'Without genre'),
+        ('BL', 'Business literature'),
+        ('DT', 'Detectives and Thrillers'),
+        ('NF', 'Nonfiction'),
+        ('DR', 'Dramaturgy'),
+        ('SE', 'Science and Education'),
+    ]
+
     title = models.CharField('Book title', db_index=True, max_length=128)
     description = models.TextField(null=True, blank=True)
     available = models.BooleanField(default=True, db_index=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, db_index=True)
+    genre = models.CharField(max_length=2, choices=GENRE_CHOICES, default='WG', db_index=True)
+
+
+class Catalog(models.Model):
+    title = models.CharField('Book title', db_index=True, max_length=128)
+    books = models.ManyToManyField(Book)

@@ -15,9 +15,14 @@ class AuthorShortSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
+    genre = serializers.SerializerMethodField()
+
     class Meta:
         model = Book
-        fields = ['id', 'title', 'description', 'author']
+        fields = ['id', 'title', 'description', 'author', 'genre']
+
+    def get_genre(self, obj):
+        return obj.get_genre_display()
 
     def to_representation(self, instance):
         self.fields['author'] = AuthorShortSerializer(read_only=True)
