@@ -73,5 +73,5 @@ class Book(models.Model):
 
 
 class Catalog(models.Model):
-    title = models.CharField('Book title', db_index=True, max_length=128)
+    title = models.CharField('Catalog title', db_index=True, max_length=128)
     books = models.ManyToManyField(Book)

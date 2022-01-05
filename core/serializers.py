@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Author
+from .models import Book, Author, Catalog
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -39,3 +39,18 @@ class BookSerializer(BookShortSerializer):
         model = Book
         fields = ['id', 'title', 'description', 'author', 'genre', 'publication_year']
 
+
+class CatalogShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Catalog
+        fields = ['id', 'title']
+
+
+class CatalogSerializer(CatalogShortSerializer):
+    books = BookShortSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Catalog
+        fields = ['id', 'title', 'books']
+
+# class BookToCatalogSerializer
