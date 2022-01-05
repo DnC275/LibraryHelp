@@ -5,25 +5,37 @@ from .models import Book, Author
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['id', 'first_name']
+        fields = ['id', 'first_name', 'last_name']
 
 
 class AuthorShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['full_name']
+        fields = ['id', 'full_name']
 
 
-class BookSerializer(serializers.ModelSerializer):
-    genre = serializers.SerializerMethodField()
+class ChoiceField(serializers.ChoiceField):
+
+    def to_representation(self, obj):
+        if obj == '' and self.allow_blank:
+            return obj
+        return self._choices[obj]
+
+
+class BookShortSerializer(serializers.ModelSerializer):
+    genre = ChoiceField(choices=Book.GENRE_CHOICES)
 
     class Meta:
         model = Book
-        fields = ['id', 'title', 'description', 'author', 'genre']
-
-    def get_genre(self, obj):
-        return obj.get_genre_display()
+        fields = ['id', 'title', 'author', 'genre']
 
     def to_representation(self, instance):
         self.fields['author'] = AuthorShortSerializer(read_only=True)
-        return super(BookSerializer, self).to_representation(instance)
+        return super(BookShortSerializer, self).to_representation(instance)
+
+
+class BookSerializer(BookShortSerializer):
+    class Meta:
+        model = Book
+        fields = ['id', 'title', 'description', 'author', 'genre', 'publication_year']
+

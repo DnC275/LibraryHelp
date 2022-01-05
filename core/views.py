@@ -11,7 +11,7 @@ from rest_framework.status import (
 from rest_framework.response import Response
 from rest_framework import viewsets
 from .models import Book, Author
-from .serializers import BookSerializer, AuthorSerializer
+from .serializers import BookSerializer, AuthorSerializer, BookShortSerializer
 
 @csrf_exempt
 @api_view(["POST"])
@@ -33,7 +33,11 @@ def login(request):
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
-    serializer_class = BookSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return BookShortSerializer
+        return BookSerializer
 
 
 class AuthorViewSet(viewsets.ModelViewSet):

@@ -25,13 +25,10 @@ class UserManager(BaseUserManager):
         Create and save a SuperUser with the given email and password.
         """
         extra_fields.setdefault('is_staff', True)
-        # extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
-        # if extra_fields.get('is_superuser') is not True:
-        #     raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(email, password, **extra_fields)
 
     def get_queryset(self):
@@ -72,6 +69,7 @@ class Book(models.Model):
     available = models.BooleanField(default=True, db_index=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, db_index=True)
     genre = models.CharField(max_length=2, choices=GENRE_CHOICES, default='WG', db_index=True)
+    publication_year = models.PositiveIntegerField(null=True)
 
 
 class Catalog(models.Model):
