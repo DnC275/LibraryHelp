@@ -49,7 +49,7 @@ class User(AbstractBaseUser):
 
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=150, db_index=True)
     last_name = models.CharField(max_length=150)
 
     @property
