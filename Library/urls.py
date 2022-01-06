@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from core.views import login, BookViewSet, AuthorViewSet, BookToCatalogViewSet, CatalogViewSet
+from core.views import login, BookViewSet, AuthorViewSet, CatalogViewSet, get_genres
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -29,5 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login, name='login'),
     path('api/', include(router.urls)),
-    # path('api/catalogs/<int:pk>/add_book/', BookToCatalogViewSet.as_view({'post': 'update'}))
+    path('api/genres/', get_genres, name='genres')
 ]
