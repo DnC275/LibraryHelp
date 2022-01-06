@@ -58,15 +58,6 @@ class BookViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Book.objects.all()
-        # genre = self.request.query_params.get('genre')
-        # if genre is not None:
-        #     queryset = queryset.filter(genre=genre)
-        # author_id = self.request.query_params.get('author')
-        # if author_id is not None:
-        #     queryset = queryset.filter(author__id=author_id)
-        # author_id = self.request.query_params.get('author')
-        # if author_id is not None:
-        #     queryset = queryset.filter(author__id=author_id)
         return queryset
 
 
@@ -79,6 +70,8 @@ class AuthorViewSet(viewsets.ModelViewSet):
 
 class CatalogViewSet(viewsets.ModelViewSet):
     queryset = Catalog.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['title']
 
     ADD = 'ADD'
     DEL = 'DEL'
