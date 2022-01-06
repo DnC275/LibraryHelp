@@ -70,8 +70,8 @@ class AuthorViewSet(viewsets.ModelViewSet):
 
 class CatalogViewSet(viewsets.ModelViewSet):
     queryset = Catalog.objects.all()
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['title']
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
 
     ADD = 'ADD'
     DEL = 'DEL'
