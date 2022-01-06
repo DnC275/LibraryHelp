@@ -77,7 +77,6 @@ class CatalogViewSet(viewsets.ModelViewSet):
     DEL = 'DEL'
 
     def get_serializer_class(self):
-        print(self.action)
         if self.action == 'list':
             return CatalogShortSerializer
         return CatalogSerializer
