@@ -5,13 +5,13 @@ from .models import Book, Author, Catalog
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['id', 'first_name', 'last_name']
+        fields = ['id', 'first_name', 'last_name', 'books_count']
 
 
 class AuthorShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['id', 'full_name']
+        fields = ['id', 'full_name', 'books_count']
 
 
 class ChoiceField(serializers.ChoiceField):

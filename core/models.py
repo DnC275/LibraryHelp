@@ -53,6 +53,10 @@ class Author(models.Model):
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
 
+    @property
+    def books_count(self):
+        return len(Book.objects.filter(author=self.id))
+
 
 class Book(models.Model):
     GENRE_CHOICES = [
@@ -75,3 +79,4 @@ class Book(models.Model):
 class Catalog(models.Model):
     title = models.CharField('Catalog title', db_index=True, max_length=128)
     books = models.ManyToManyField(Book)
+
