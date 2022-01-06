@@ -43,7 +43,7 @@ class BookSerializer(BookShortSerializer):
 class CatalogShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Catalog
-        fields = ['id', 'title']
+        fields = ['id', 'title', 'books_count']
 
 
 class CatalogSerializer(CatalogShortSerializer):
@@ -53,4 +53,3 @@ class CatalogSerializer(CatalogShortSerializer):
         model = Catalog
         fields = ['id', 'title', 'books']
 
-# class BookToCatalogSerializer

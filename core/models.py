@@ -80,3 +80,6 @@ class Catalog(models.Model):
     title = models.CharField('Catalog title', db_index=True, max_length=128)
     books = models.ManyToManyField(Book)
 
+    @property
+    def books_count(self):
+        return len(self.books.all())
