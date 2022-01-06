@@ -73,6 +73,8 @@ class BookViewSet(viewsets.ModelViewSet):
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['first_name', 'last_name']
 
 
 class CatalogViewSet(viewsets.ModelViewSet):
