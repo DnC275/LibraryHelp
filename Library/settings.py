@@ -141,3 +141,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True
+    INSTALLED_APPS.append(
+        'corsheaders'
+    )
+    MIDDLEWARE.append(
+        'corsheaders.middleware.CorsMiddleware',
+    )
